@@ -6,21 +6,21 @@ Created on Fri May 29 14:45:39 2020
 """
 
 import os
-from datetime import datetime
 import schedule
 import time
 import wget
 
 def job():
-    today=datetime.today().strftime('%d-%m-%Y')
-    month=datetime.now().strftime("%B")
+    today=time.strftime('%d-%m-%Y')
+    month=time.strftime("%b")
     path="C:/Users/mjlyn/Documents/Marias_Crosswords"
+    #an example of daily crossword url is http://puzzles.freedailycrosswords.com/April/old/20-04-2020.pdf
     crossword_url="http://puzzles.freedailycrosswords.com/" + month + "/old/" + today + ".pdf"
     file=wget.download(url=crossword_url,out=path)
     print("Today's crossword was successfully printed!")
     os.startfile(file,"print")
     
-schedule.every(60).seconds.do(job)
+schedule.every().day.at("8:00").do(job)
 
 while 1:
     schedule.run_pending()
